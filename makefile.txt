@@ -1,0 +1,2 @@
+main:
+	gcc lodepng.h 1course.c -o analyzer
