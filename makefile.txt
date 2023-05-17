@@ -1,2 +1,2 @@
 main:
-	gcc -o 1course (3) lodepng.с 1course (3).c 
+	gcc -o 1course(3) lodepng.с 1course(3).c 
