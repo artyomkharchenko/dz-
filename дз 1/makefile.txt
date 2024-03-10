@@ -1,0 +1,17 @@
+CC = g++
+CFLAGS = -Wall
+
+main: main.o database.o parser.o
+	$(CC) $(CFLAGS) -o main main.o database.o p arser.o
+
+main.o: main.cpp database.h solver.h
+	$(CC) $(CFLAGS) -c main.cpp
+
+database.o: database.cpp database.h parser.h
+	$(CC) $(CFLAGS) -c database.cpp
+
+parser.o: parser.cpp parser.h
+	$(CC) $(CFLAGS) -c parser.cpp
+
+clean:
+	rm -f *.o main
