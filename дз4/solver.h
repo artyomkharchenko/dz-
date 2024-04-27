@@ -2,9 +2,15 @@
 #define SOLVER_H
 
 #include <vector>
-#include <utility>
 #include "Item.h"
 
-std::pair<double, std::vector<int>> solver(int c, const std::vector<Item>& items, int n);
+class Solver {
+public:
+    static std::pair<int, std::vector<bool>> knapsackBranchAndBound(int W, std::vector<Item>& items);
 
-#endif
+private:
+    static int knapsackBound(int n, int W, int weightSoFar, int valueSoFar, std::vector<Item>& items);
+    static bool compareByRatio(const Item &a, const Item &b);
+};
+
+#endif 
