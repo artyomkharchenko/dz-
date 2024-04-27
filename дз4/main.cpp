@@ -1,42 +1,42 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
-#include <algorithm>
-#include "parser.h"
-#include "solver.h"
 #include "Item.h"
+#include "Parser.h"
+#include "Solver.h"
 
-using namespace std;
+void printItems(const std::vector<bool>& included) {
+    for (bool item : included) {
+        std::cout << (item ? 1 : 0) << " ";
+    }
+    std::cout << std::endl;
+}
 
 int main() {
-    string f = "input.txt";
-    auto [n, c] = parser(f);
+    std::string filename = "input.txt";
+    auto [n, c] = Parser::parse(filename);
+
     if (n == -1 || c == -1) {
         return 1;
     }
 
-    vector<Item> items(n);
-    ifstream inputFile(f);
-    inputFile >> n >> c;
+    std::vector<Item> items(n);
     for (int i = 0; i < n; i++) {
-        inputFile >> items[i].v >> items[i].w; 
-    }
-    inputFile.close();
-
-    auto result = solver(c, items, n);
-    double maxv = result.first;
-    vector<int> si = result.second;
-
-    int sw = 0;
-    for (int i : si) {
-        sw += items[i].w; 
+        std::cin >> items[i].v >> items[i].w;
     }
 
-    cout << maxv << " " << c - sw << endl; 
+    auto result = Solver::knapsackBranchAndBound(c, items);
+    int maxProfit = result.first;
+    std::vector<bool> itemsTaken = result.second;
+    int remainingSpace = c;
+
     for (int i = 0; i < n; ++i) {
-        cout << (find(si.begin(), si.end(), i) != si.end() ? 1 : 0) << " ";
+        if (itemsTaken[i]) {
+            remainingSpace -= items[i].w;
+        }
     }
-    cout << endl;
+
+    std::cout << maxProfit << " " << remainingSpace << std::endl;
+    printItems(itemsTaken);
 
     return 0;
 }
