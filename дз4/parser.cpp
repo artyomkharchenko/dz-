@@ -1,20 +1,17 @@
-#include <iostream>
+#include "Parser.h"
 #include <fstream>
-#include <string>
-#include "parser.h"
+#include <iostream>
 
-using namespace std;
-
-pair<int, int> parser(const string& f) {
-    ifstream inputFile(f);
+std::pair<int, int> Parser::parse(const std::string& filename) {
+    std::ifstream inputFile(filename);
     if (!inputFile.is_open()) {
-        cout << "Не удалось открыть файл " << f << endl;
+        std::cerr << "Failed to open file " << filename << std::endl;
         return {-1, -1};
     }
 
     int n, c;
     inputFile >> n >> c;
-
     inputFile.close();
+
     return {n, c};
 }
