@@ -4,6 +4,9 @@
 #include <string>
 #include <utility>
 
-std::pair<int, int> parser(const std::string& f);
+class Parser {
+public:
+    static std::pair<int, int> parse(const std::string& filename);
+};
 
-#endif
+#endif 
